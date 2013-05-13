@@ -1,0 +1,352 @@
+Liquibase Core Changelog
+===========================================
+
+Change in version 2.0.5 (2012.05.01) https://liquibase.jira.com/secure/ReleaseNote.jspa?projectId=10020&version=10360
+----------------------
+- Reverted load blog/clob data from files feature
+- Fixed linux distribution script
+- Fixed command line output back to stdout
+
+Change in version 2.0.4 (2012.04.18) https://liquibase.jira.com/secure/ReleaseNote.jspa?projectId=10020&version=10160
+----------------------
+- Support ${} params in included sql files
+- Ability to load blog/clob data from files
+- Bug Fixes
+
+
+Change in version 2.0.2 (2011.09.15)
+----------------------
+- dropFirst parameter on SpringLiquibase bean
+- Bug Fixes
+
+Change in version 2.0.0 (2010.12.19)
+----------------------
+- Major change to codebase, focusing on extension/integration APIs
+
+Changes in version 1.9.3 (2009.4.3)
+----------------------
+- Fixed index column nested tags in generated XML
+
+Changes in version 1.9.2 (2009.4.6)
+----------------------
+- Fix for includeAll on windows
+- Other bug fixes
+
+Changes in version 1.9.1 (2009.2.20)
+----------------------
+- Escape hsql tables/columns if they are a keyword
+- opensvn is included in our jar, not a dependency
+- Bug in runInTransaction
+- Additional bug fixes
+- Grails 1.1-SNAPSHOT support
+
+Changes in version 1.9.0 (2009.1.7)
+----------------------
+- Paths in <include> can be relative to changelog
+- Sybase Adaptive SQL Anywhere support
+- Better Derby support (drop column, rename column)
+- <modifySql> support
+- <stop> change
+- <includeAll> support
+- runInTransaction attribute for changeSet
+- Stronger validation in .xsd
+- Bug fixes
+
+Changes in version 1.8.1 (2008.10.1)
+----------------------
+- Bug fixes
+
+Changes in version 1.8.0 (2008.09.17)
+----------------------
+- Added SQLite support
+- Bug fixes
+- Added dropAllForeignKeyConstraints change
+- Added onFail and onError precondition failure controls
+- Auto-increment specifying on a non-auto-increment table does not fail but simply ignores flag
+- Can control onDelete and onUpdate behavior for FK constraints
+- Added ability to specify that an index should be unique
+- Additional validation step checks for required attributes at run time
+- Improved ordering of generated scripts with diff
+- Improved command line migrator return codes
+- Context checking is case insensitive
+- Can specify end delimiter in <sql> change
+- Added several new precondition checks
+- Custom preconditions can be passed parameters
+
+Changes in version 1.7.0 (2008.06.25)
+----------------------
+- Added loadData change
+- Added support for changelog paramters
+- Allow preconditions in <changeSet>
+- Can export data with generateChangeLog
+- Added markNextChangeSetRan command
+- Added validCheckSum tag to changeSet
+- Can use change tags in <rollback>
+- Can reference previous changeSets in <rollback>
+- Allow custom preconditions
+- RowMapper interface is now public
+- Misc bug fixes
+
+Changes in version 1.6.1 (2008.04.23)
+----------------------
+- Maven/Grails/IntlliJ Plugin relase of 1.6.x
+- Many misc bug fixes
+
+Changes in version 1.6.0 (2008.03.27)
+----------------------
+- Added Hibernate diff support
+- Fix to MD5Sum generation that requires updating all rows in databasechangelog table
+- Added tagDatabase tag
+- Added primaryKeyName attribute
+- Supports multiple rollback tags per changeSet
+- Column remarks stored in generated changelogs
+- executeCommand output logged to logging system
+- Many misc bug fixes
+
+Changes in version 1.5.3 (2008.02.28)
+----------------------
+- Recompiled to work with Java 1.5
+
+Changes in version 1.5.2 (2008.02.07)
+----------------------
+- Fixed bug with runOnChange and MD5sum check
+- Handles generating changelog for tables with composite primary keys
+- Other minor bug fixes
+
+Changes in version 1.5.1 (2008.02.01)
+----------------------
+- Fixed failOnError logic
+- Improved serial column detection in Postgres
+- Rollback connections before close for DB2
+- Other minor bug fixes
+
+Changes in version 1.5.0 (2008.01.29)
+----------------------
+- Major Refactoring of XML parser and Migrator/Liquibase class
+- Database table comments saved to generated change log
+- ReplaceIfExists attribute added to createView
+- Setting value/valueNumeric/valueBoolean/valueDate on addColumn will update all existing rows with the given value
+- Added defaultSchemaName parameter for setting default schema
+- Changelog file comparisons are case-insensitive on windows
+- Output warning of old schema version
+- Added updateCount and updateCountSQL commands
+- Changed "migrate" command to "update".  Note: "migrate" is now an alias for "update"
+- Added comments tag to generated SQL output
+- Custom Database implementations can be specified with the databaseClassName parameter
+- Created changeLogSync command
+- Rollback commands can specify contexts
+- createTable can specify unique constraint name
+- XSDs are not pulled from network
+- Handles Postgres datatypes better
+- added <update> change
+- added <delete> change
+- Additional and enhanced Ant tasks
+- Changed database.migrator.should.run system property to liquibase.should.run
+- Moved liquibase.servlet.MigratorStatusServlet to liquibase.servlet.LiquibaseStatusServlet
+- Moved liquibase.servlet.ServletMigrator to liquibase.servlet.LiquibaseServletListener
+- Moved liquibase.spring.SpringMigrator to liquibase.spring.SpringLiquibase
+- Moved liquibase.commandline.CommandLineMigrator to liquibase.commandline.Main
+- Renamed checked servlet listener parameters
+- Other bug fixes
+
+Changes in version 1.4.1 (2007.11.30)
+----------------------
+- Bug fixes
+
+Changes in version 1.4.0 (2007.11.19)
+----------------------
+- IntelliJ Plug-in Support
+- Added support for specifying schemas in change log
+- MaxDB/SAPDB Support
+- Refactored Code
+- Can specify data types as java.sql.Types.*
+- Support for composite foreign keys
+- Improved Maven support
+- Bug Fixes
+
+Changes in version 1.3.2 (2007.10.8)
+----------------------
+- Grails support
+- Firebird support
+
+Changes in version 1.3.1 (2007.10.2)
+----------------------
+- Bug fix for createStoredProcedure in Oracle
+
+Changes in version 1.3.0 (2007.9.27)
+----------------------
+- Added tablespace support to createTable, createIndex, addPrimaryKey, and addUniqueConstraint
+- Restored Java 6 Support
+- Added defaultCascade attribute to addForeignKeyConstraint
+- Can have multiple comma-separated contexts per change set
+- Created <custom> change
+- Added sqlCheck precondition
+- Database Diff checks column types and nullability
+- DiffChangeLog will write to a file specified with the --changeLog flag
+- Added dbdoc documentation generator
+- Database Diff checks views
+- Package re-organization
+- Added createProcedure change
+- Added <executeCommand> change
+- Table names are enclosed in []'s on MS SQL
+- Added Spring migrator
+- Misc bug fixes
+
+Changes in version 1.2.1 (2007.8.31)
+----------------------
+- Include sequences in generateChangeLog
+- Fixed ordering of statements default and null clauses based on database
+
+Changes in version 1.2 (2007.8.28)
+----------------------
+- Added support for H2 database
+- Added support for InterSystems Cache` database
+- Support for sqlfile change
+- Improved error messages
+- Sybase fixes
+- Handle --defaultsFile correctly
+- Handle command line parameters correctly on Windows systems
+- <sql> tag can contain a <comment> tag
+- Change log file references can be absolute
+- SQL can be ; or 'go' delimited
+- Added clearCheckSums command
+- Bug fixes
+
+Changes in version 1.1.1 (2007.7.24)
+-----------------------------------
+- Bug fixes related to the diff tool
+
+Changes in version 1.1 (2007.7.23)
+-----------------------------------
+- Support for additional databases: DB2, Derby, Sybase (not fully tested), and HSQL
+- Support for "unsupported" databases
+- Database Diff Tool
+- Database Creation Script Generator
+- new DBMS attribute on change set tag that allows you to specify what databases to run the change set against
+- "verify" command that checks for change log problems without attempting to execute any
+- "status" command that shows information on unrun change sets
+- Handle date/time and numeric values better on inserts and setting default values
+- Bug Fixes
+
+Changes in version 1.0.1 (2007.7.07)
+------------------------------------
+- Do not quote "null" default values
+- Documentation fixes
+
+Changes in version 1.0 (2007.6.25)
+------------------------------------
+- Minor Bug Fixes
+
+Changes in version 1.0 RC2 (2007.6.19)
+------------------------------------
+- Improved documentation
+- Bug fixes
+- Changes to exception throwing
+
+Changes in version 1.0 RC1 (2007.6.8)
+------------------------------------
+- Added batch/shell scripts for command line migrator
+- Improved documentation
+- Bug fixes
+- Blog started at http://blog.liquibase.org
+
+Changes in version 0.9.1 (2007.5.23)
+------------------------------------
+- Bug fixes
+
+Changes in version 0.9.0 (2007.5.14)
+------------------------------------
+- Rollback support
+- Initial Maven support
+- Performance improvements
+- Can have a logical file and path for changelogs
+- New Database Refactorings:
+  - Add View
+  - Rename View
+  - Drop View
+  - Merge Columns
+  - Add Foreign-Key Constraint
+  - Drop Foreign-Key Constraint
+  - Add Lookup Table
+  - Add Primary Key
+  - Add Auto-Increment
+  - Add Default Value
+  - Drop Default Value
+  - Drop Primary Key
+  - Add Unique Constraint
+  - Drop Unique Constraint
+- Code refactorings
+
+Changes in version 0.8.2 (2007.4.30)
+-------------------------------------
+- Bug fixes
+
+Changes in version 0.8.1 (2007.4.25)
+-------------------------------------
+- Prompting for non-local database is now false by default
+- Ant non-local database prompt attribute changed to promptOnNonLocalDatabase from promptOnNonDevDatabase
+- Bug Fixes
+
+
+Changes in version 0.8.0 (2007.4.22)
+-------------------------------------
+- Changelog Pre-conditions
+- Execution contexts
+- failOnError tag for changeSets
+- addNotNullConstraint / dropNotNullConstraint
+- allow "comment" tags
+- Improved documentation
+- Completed conversion to SourceForge
+- Improved automated tests
+
+
+Changes in version 0.7.0 (2007.3.16)
+-------------------------------------
+- Changed MD5Sum logic.  !! Need to run 'update databasechangelog set md5sum=null' !!
+- Added support for autoIncrement columns in createTableChange
+- Switched to Liquibase name, including all package structures
+- Moved code to SourceForge
+
+
+Changes in version 0.6.3 (2007.1.10)
+--------------------------------------
+- Fixed bug in create table refactoring where it ignored constraint clauses
+
+Changes in version 0.6.2 (2006.12.19)
+--------------------------------------
+- Fixed missing non-upper cased insert statement
+
+Changes in version 0.6.1 (2006.12.12)
+--------------------------------------
+- Classpath for command line migrator can now include .ear files
+- Can specify a "database.migrator.should.run" system property that blocks the migrator from running if set to "false"
+- Added a liquibase.migrator.servlet.MigratorStatusServlet servlet that can used to see the migrator logs
+- Added a MIGRATOR_FAIL_ON_ERROR web.xml context parameter that controls if an exception should be raised if an exception is thrown, or if the listener should just return.  Throws an exception by default
+- All database SQL is upper case.
+- Fixed issues with postgres schemas and getTables() call
+- Added retroweaver build for 1.4 JVMs
+- Misc. Bug fixes
+
+Changes in version 0.6 (2006.11.10)
+--------------------------------------
+- Added change log locking support, so multiple migrators running at the same time won't interfere with eachother
+- Fixed bug with command line parsing and URLs with '='s in them
+- Misc bug fixes
+
+Changes in version 0.5.1 (2006.10.18)
+--------------------------------------
+- Bugfixes related to running ant task
+
+Changes in version 0.5 (2006.10.16)
+--------------------------------------
+- LGPL Licence
+- Oracle uses Timestamp for datetime columns
+- Command line migrator can be run against WAR and EAR files
+- Command line migrator can be run via java -jar
+- ChangeSets can be marked as "runAlways" and "runOnChange"
+- ServletListener can be configured to only run on certain hostnames
+- Removed all dependencies
+- Improved MD5Sum generation.  To update your MD5Sums, run "update databasechangelog set md5sum=null"
+- MySQL Support
+- Misc bugfixes
+- Improved Documentation

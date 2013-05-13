@@ -1,0 +1,68 @@
+release version in jira
+update changelog.txt
+
+set java home
+set path=%path%;gpg
+set path=%PATH%;git
+
+git\bin\ssh-agent
+set env variables based on output
+git\bin\ssh-add "c/Users/nvoxland/.ssh/id_rsa"
+git\bin\ssh -v git@github.com to test
+
+close intellij so .iml files aren't changed on the fly
+
+mvn -Darguments="-DskipTest=true" release:prepare
+mvn -Darguments="-DskipTest=true" release:perform
+
+upload target/checkout/liquibase-maven-integration/target/site to phpinclude
+upload target/checkout/liquibase-core/target/site to phpinclude
+
+upload new version of site to server
+update version info on /download
+release version on jira
+
+release on sonatype
+- log in to oss.sonatype.org
+- staging repositories->select "org.liquibase..."
+- run "close"
+- select "org.liquibase..."
+- run "release"
+
+POST MESSAGES TO:
+- forum
+- blog
+- mailing list
+
+
+- sourceforge project
+- javalobby
+- freshmeat
+- wikipedia
+- Newly supported database lists
+
+ Sample messages:
+--------------------------------------------------------
+CORE
+---------------------------------------------------------
+ Liquibase 1.4.0 has been released. Major features include:
+
+- IntelliJ Plug-in Support
+- Added support for specifying schemas in change log
+- MaxDB/SAPDB Support
+- Refactored Code
+- Can specify data types as java.sql.Types.*
+- Support for composite foreign keys
+- Improved Maven support
+- Bug Fixes
+
+Upgrading is simply a matter of replacing the liquibase.jar file. To take advantage of newer change log features, change your XSD declaration to:
+
+<databasechangelog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.4";
+xsi="http://www.w3.org/2001/XMLSchema-instance";
+schemalocation="http://www.liquibase.org/xml/ns/dbchangelog/1.4
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.4.xsd";>
+
+Download Liquibase 1.4 from:
+
+http://www.liquibase.org/download

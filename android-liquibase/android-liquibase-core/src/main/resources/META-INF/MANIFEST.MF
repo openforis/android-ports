@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Main-Class: liquibase.integration.commandline.Main
+Liquibase-Package: liquibase.change,
+ liquibase.database,
+ liquibase.parser,
+ liquibase.precondition,
+ liquibase.serializer,
+ liquibase.sqlgenerator,
+ liquibase.executor,
+ liquibase.snapshot,
+ liquibase.logging,
+ liquibase.ext
