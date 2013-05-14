@@ -15,7 +15,7 @@ public class JdbcDaoSupport {
 		JdbcDaoSupport.dataSource = dataSource;
 	}
 	
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		try {
 			if ( connection == null || connection.isClosed() ) {
 				connection = dataSource.getConnection();
