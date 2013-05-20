@@ -28,18 +28,19 @@ public class XMLChangeLogSAXParser implements ChangeLogParser {
 
     public XMLChangeLogSAXParser() {
         saxParserFactory = SAXParserFactory.newInstance();
-
-        if (System.getProperty("java.vm.version").startsWith("1.4")) {
+        boolean android = System.getProperty("java.vm.name").equalsIgnoreCase("Dalvik");
+        if ( android ) {
+            saxParserFactory.setNamespaceAware(true);
             saxParserFactory.setValidating(false);
-            //removed by Open Foris
-            //saxParserFactory.setNamespaceAware(false);
         } else {
-            saxParserFactory.setValidating(true);
-            //removed by Open Foris
-            //saxParserFactory.setNamespaceAware(true);
+	        if (System.getProperty("java.vm.version").startsWith("1.4")) {
+	            saxParserFactory.setValidating(false);
+	            saxParserFactory.setNamespaceAware(false);
+	        } else {
+	            saxParserFactory.setValidating(true);
+	            saxParserFactory.setNamespaceAware(true);
+	        }
         }
-        //added by Open Foris (enable namespace processing in Android)
-        saxParserFactory.setNamespaceAware(true);
     }
 
     public int getPriority() {
