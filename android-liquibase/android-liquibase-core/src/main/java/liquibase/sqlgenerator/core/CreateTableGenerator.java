@@ -80,7 +80,7 @@ public class CreateTableGenerator extends AbstractSqlGenerator<CreateTableStatem
                 buffer.append(statement.getColumnTypes().get(column).convertObjectToString(defaultValue, database));
             }
 
-            if (isAutoIncrementColumn) {
+            if (isAutoIncrementColumn && ! (database instanceof SQLiteDatabase)) {
             	// TODO: check if database supports auto increment on non primary key column
                 if (database.supportsAutoIncrement()) {
                 	String autoIncrementClause = database.getAutoIncrementClause(autoIncrementConstraint.getStartWith(), autoIncrementConstraint.getIncrementBy());
