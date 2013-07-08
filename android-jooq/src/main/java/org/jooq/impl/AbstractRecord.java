@@ -95,6 +95,12 @@ abstract class AbstractRecord extends AbstractStore<Object> implements Record {
     public final List<Attachable> getAttachables() {
         List<Attachable> result = new ArrayList<Attachable>();
 
+        for (Value<?> value : getValues()) {
+        	 if (value instanceof Attachable) {
+                 result.add((Attachable) value);
+             }
+		}
+        /*
         for (Field<?> field : getFields()) {
             Object value = getValue(field);
 
@@ -102,7 +108,7 @@ abstract class AbstractRecord extends AbstractStore<Object> implements Record {
                 result.add((Attachable) value);
             }
         }
-
+		*/
         return result;
     }
 
