@@ -15,7 +15,7 @@ public class SQLDroidBlob implements Blob {
 	
 	@Override
 	public InputStream getBinaryStream() throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return null;
 	}
 
@@ -32,38 +32,38 @@ public class SQLDroidBlob implements Blob {
 
 	@Override
 	public long position(Blob pattern, long start) throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return 0;
 	}
 
 	@Override
 	public long position(byte[] pattern, long start) throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return 0;
 	}
 
 	@Override
 	public OutputStream setBinaryStream(long pos) throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return null;
 	}
 
 	@Override
 	public int setBytes(long pos, byte[] theBytes) throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return 0;
 	}
 
 	@Override
 	public int setBytes(long pos, byte[] theBytes, int offset, int len)
 			throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 		return 0;
 	}
 
 	@Override
 	public void truncate(long len) throws SQLException {
-		System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
+		//System.err.println(" ********************* not implemented @ " + DebugPrinter.getFileName() + " line " + DebugPrinter.getLineNumber());
 
 	}
 
