@@ -128,15 +128,12 @@ public class SqlGeneratorFactory {
 		return result;
 	}
 
-    private boolean isTypeEqual(Type aType, Class aClass) {
-    	/*
-        if (aType instanceof Class) {
-            return ((Class) aType).getName().equals(aClass.getName());
-        }
-        return aType.equals(aClass);
-        */
-    	return aType == aClass;
-    }
+//    private boolean isTypeEqual(Type aType, Class aClass) {
+//        if (aType instanceof Class) {
+//            return ((Class) aType).getName().equals(aClass.getName());
+//        }
+//        return aType.equals(aClass);
+//    }
     
     private void checkType(Type type, SqlStatement statement, SqlGenerator generator, Database database, SortedSet<SqlGenerator> validGenerators) {
         for (Type typeClass : ((ParameterizedType) type).getActualTypeArguments()) {
