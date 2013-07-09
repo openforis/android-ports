@@ -1,18 +1,25 @@
 package liquibase.sqlgenerator;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import liquibase.database.Database;
 import liquibase.database.structure.DatabaseObject;
 import liquibase.exception.ValidationErrors;
 import liquibase.exception.Warnings;
 import liquibase.servicelocator.ServiceLocator;
 import liquibase.sql.Sql;
-import liquibase.sqlgenerator.core.AbstractSqlGenerator;
 import liquibase.statement.SqlStatement;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.util.*;
 
 /**
  * SqlGeneratorFactory is a singleton registry of SqlGenerators.
@@ -24,8 +31,12 @@ public class SqlGeneratorFactory {
     private static SqlGeneratorFactory instance;
 
     private List<SqlGenerator> generators = new ArrayList<SqlGenerator>();
+    //cache
+	private Map<Class, Type[]> genericInterfacesByClass;
 
     private SqlGeneratorFactory() {
+    	genericInterfacesByClass = new HashMap<Class, Type[]>();
+    	
         Class[] classes;
         try {
             classes = ServiceLocator.getInstance().findClasses(SqlGenerator.class);
@@ -90,7 +101,7 @@ public class SqlGeneratorFactory {
                     checkType(classType, statement, generator, database, validGenerators);
                 }
 
-                for (Type type : clazz.getGenericInterfaces()) {
+                for (Type type : getGenericInterfaces(clazz)) {
                     if (type instanceof ParameterizedType) {
                         checkType(type, statement, generator, database, validGenerators);
                     //} else if (isTypeEqual( type, SqlGenerator.class)) {
@@ -107,6 +118,15 @@ public class SqlGeneratorFactory {
         }
         return validGenerators;
     }
+
+	private Type[] getGenericInterfaces(Class clazz) {
+		Type[] result = genericInterfacesByClass.get(clazz);
+		if ( result == null ) {
+			result = clazz.getGenericInterfaces();
+			genericInterfacesByClass.put(clazz, result);
+		}
+		return result;
+	}
 
     private boolean isTypeEqual(Type aType, Class aClass) {
     	/*
