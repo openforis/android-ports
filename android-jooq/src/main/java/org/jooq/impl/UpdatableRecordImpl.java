@@ -98,10 +98,11 @@ public class UpdatableRecordImpl<R extends UpdatableRecord<R>> extends TableReco
         R copy = create().newRecord(getTable());
 
         // Copy all fields. This marks them all as isChanged, which is important
-        for (Field<?> field : getFields()) {
-            setValue(copy, field);
-        }
-
+        Value<?>[] values = getValues();
+        for (int i = 0; i < values.length; i++) {
+			Value<?> value = values[i];
+			setValue(copy, i, value);
+		}
         // Remove key values again
         for (Field<?> field : getMainKey().getFields()) {
             copy.setValue(field, null);
@@ -115,5 +116,11 @@ public class UpdatableRecordImpl<R extends UpdatableRecord<R>> extends TableReco
      */
     private final <T> void setValue(Record record, Field<T> field) {
         record.setValue(field, getValue(field));
+    }
+    
+    private final <T> void setValue(Record record, int index, T value) {
+        @SuppressWarnings("unchecked")
+		Field<T> field = (Field<T>) getField(index);
+		record.setValue(field, value);
     }
 }

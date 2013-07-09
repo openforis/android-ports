@@ -96,7 +96,8 @@ public class TableRecordImpl<R extends TableRecord<R>> extends TypeRecord<Table<
         for (TableField<R, ?> field : keys) {
 
             // If any primary key value is null or changed, execute an insert
-            if (getValue(field) == null || getValue0(field).isChanged()) {
+            Value<?> value0 = getValue0(field);
+			if (value0.getValue() == null || value0.isChanged()) {
                 executeUpdate = false;
                 break;
             }
@@ -125,12 +126,14 @@ public class TableRecordImpl<R extends TableRecord<R>> extends TypeRecord<Table<
         Factory create = create();
         InsertQuery<R> insert = create.insertQuery(getTable());
 
-        for (Field<?> field : getFields()) {
-            if (getValue0(field).isChanged()) {
-                addValue(insert, (TableField<R, ?>) field);
-            }
-        }
-
+        Value<?>[] values = getValues();
+        for (int i = 0; i < values.length; i++) {
+			Value<?> value = values[i];
+			if ( value.isChanged() ) {
+				Field<?> field = getFields().get(i);
+				addValue(insert, (TableField<R, ?>) field);
+			}
+		}
         // [#814] Refresh identity and/or main unique key values
         // [#1002] Consider also identity columns of non-updatable records
         // [#1537] Avoid refreshing identity columns on batch inserts
@@ -171,17 +174,18 @@ public class TableRecordImpl<R extends TableRecord<R>> extends TypeRecord<Table<
     @SuppressWarnings("unchecked")
     private final int storeUpdate(TableField<R, ?>... keys) {
         UpdateQuery<R> update = create().updateQuery(getTable());
-
-        for (Field<?> field : getFields()) {
-            if (getValue0(field).isChanged()) {
-                addValue(update, (TableField<R, ?>) field);
-            }
-        }
-
+        
+        Value<?>[] values = getValues();
+        for (int i = 0; i < values.length; i++) {
+			Value<?> value = values[i];
+			if ( value.isChanged() ) {
+				Field<?> field = getField(i);
+				addValue(update, (TableField<R, ?>) field);
+			}
+		}
         for (Field<?> field : keys) {
             addCondition(update, field);
         }
-
         return update.execute();
     }
 
@@ -200,9 +204,9 @@ public class TableRecordImpl<R extends TableRecord<R>> extends TypeRecord<Table<
         // [#673] If store() is called after delete(), a new INSERT should
         // be executed and the record should be recreated
         finally {
-            for (Field<?> field : getFields()) {
-                getValue0(field).setChanged(true);
-            }
+        	for (Value<?> value : getValues()) {
+				value.setChanged(true);
+			}
         }
     }
 
@@ -217,8 +221,11 @@ public class TableRecordImpl<R extends TableRecord<R>> extends TypeRecord<Table<
         if (select.execute() == 1) {
             AbstractRecord record = (AbstractRecord) select.getResult().get(0);
 
-            for (Field<?> field : getFields()) {
-                setValue0(field, record.getValue0(field));
+            Value<?>[] values = record.getValues();
+            for (int i = 0; i < values.length; i++) {
+				Value<?> value = values[i];
+				Field<?> field = getFields().get(i);
+				setValue0(field, value);
             }
         }
         else {

@@ -78,13 +78,18 @@ class UpdateQueryImpl<R extends Record> extends AbstractStoreQuery<R> implements
         return updateMap;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public final void setRecord(R record) {
-        for (Field<?> field : record.getFields()) {
-            if (((AbstractRecord) record).getValue0(field).isChanged()) {
-                addValue(record, field);
-            }
-        }
+    	Value<?>[] values = ((AbstractRecord) record).getValues();
+    	for (int i = 0; i < values.length; i++) {
+			Value<?> value = values[i];
+			if ( value.isChanged() ) {
+				@SuppressWarnings("rawtypes")
+				Field field = record.getFields().get(i);
+				addValue(field, value);
+			}
+		}
     }
 
     @Override

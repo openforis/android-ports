@@ -137,9 +137,13 @@ abstract class AbstractRecord extends AbstractStore<Object> implements Record {
         return getFields().size();
     }
 
-    @SuppressWarnings("unchecked")
     final <T> Value<T> getValue0(Field<T> field) {
-        return (Value<T>) getValues()[getIndex(field)];
+    	return getValue0(getIndex(field));
+    }
+    
+    @SuppressWarnings("unchecked")
+	final <T> Value<T> getValue0(int index) {
+        return (Value<T>) getValues()[index];
     }
 
     final Value<?>[] getValues() {
@@ -208,7 +212,11 @@ abstract class AbstractRecord extends AbstractStore<Object> implements Record {
     }
 
     final <T> void setValue(Field<T> field, Value<T> value) {
-        getValues()[getIndex(field)] = value;
+    	setValue(getIndex(field), value);
+    }
+    
+    final <T> void setValue(int index, Value<T> value) {
+		getValues()[index] = value;
     }
 
     /**
@@ -366,7 +374,7 @@ abstract class AbstractRecord extends AbstractStore<Object> implements Record {
 
     @Override
     public final Object getValue(int index) {
-        return getValue(getField(index));
+        return getValue0(index).getValue();
     }
 
     @Override
