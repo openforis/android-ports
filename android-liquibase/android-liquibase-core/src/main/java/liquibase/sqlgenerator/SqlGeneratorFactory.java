@@ -17,6 +17,7 @@ import liquibase.database.Database;
 import liquibase.database.structure.DatabaseObject;
 import liquibase.exception.ValidationErrors;
 import liquibase.exception.Warnings;
+import liquibase.servicelocator.ClassHierarchyCache;
 import liquibase.servicelocator.ServiceLocator;
 import liquibase.sql.Sql;
 import liquibase.statement.SqlStatement;
@@ -31,12 +32,8 @@ public class SqlGeneratorFactory {
     private static SqlGeneratorFactory instance;
 
     private List<SqlGenerator> generators = new ArrayList<SqlGenerator>();
-    //cache
-	private Map<Class, Type[]> genericInterfacesByClass;
-
+	
     private SqlGeneratorFactory() {
-    	genericInterfacesByClass = new HashMap<Class, Type[]>();
-    	
         Class[] classes;
         try {
             classes = ServiceLocator.getInstance().findClasses(SqlGenerator.class);
@@ -100,8 +97,7 @@ public class SqlGeneratorFactory {
                 if (classType instanceof ParameterizedType) {
                     checkType(classType, statement, generator, database, validGenerators);
                 }
-
-                for (Type type : getGenericInterfaces(clazz)) {
+                for (Type type : ClassHierarchyCache.getGenericInterfaces(clazz)) {
                     if (type instanceof ParameterizedType) {
                         checkType(type, statement, generator, database, validGenerators);
                     //} else if (isTypeEqual( type, SqlGenerator.class)) {
@@ -112,21 +108,12 @@ public class SqlGeneratorFactory {
                         }
                     }
                 }
-                classType = clazz.getGenericSuperclass();
-                clazz = clazz.getSuperclass();
+                classType = ClassHierarchyCache.getGenericSuperclass(clazz);
+                clazz = ClassHierarchyCache.getSuperclass(clazz);
             }
         }
         return validGenerators;
     }
-
-	private Type[] getGenericInterfaces(Class clazz) {
-		Type[] result = genericInterfacesByClass.get(clazz);
-		if ( result == null ) {
-			result = clazz.getGenericInterfaces();
-			genericInterfacesByClass.put(clazz, result);
-		}
-		return result;
-	}
 
 //    private boolean isTypeEqual(Type aType, Class aClass) {
 //        if (aType instanceof Class) {
