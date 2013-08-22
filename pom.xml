@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openforis.android</groupId>
 	<artifactId>android-ports</artifactId>
-	<version>1.0-Alpha1</version>
+	<version>1.0-Alpha2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>android-jaxb</module>
@@ -36,7 +36,7 @@
 		<connection>scm:git:git@github.com:openforis/android-ports.git</connection>
 		<url>scm:git:git@github.com:openforis/android-ports.git</url>
 		<developerConnection>scm:git:git@github.com:openforis/android-ports.git</developerConnection>
-		<tag>android-ports-1.0-Alpha1</tag>
+		<tag>HEAD</tag>
 	</scm>
 	
 	<build>
